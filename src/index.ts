@@ -29,7 +29,7 @@ async function main() {
     logger.debug(`Loaded route ${route.path} from ${file}`);
   });
 
-  const PORT = process.env.PORT || 3000;
+  const PORT = process.env.PORT || 4500;
   app.listen(PORT, () => {
     logger.info(`Server listening on port ${PORT}. http://localhost:${PORT}`);
   });

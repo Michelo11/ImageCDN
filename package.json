@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "LOG_LEVEL=debug nodemon --exec ts-node src/index.ts",
     "build": "tsc",
-    "start": "node build/index.js"
+    "start": "prisma migrate deploy && node build/index.js"
   },
   "dependencies": {
     "@prisma/client": "4.14.0",
