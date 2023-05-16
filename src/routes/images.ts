@@ -1,6 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
-import { prisma } from "..";
+import { logger, prisma } from "..";
 import { get } from "../utils/files";
 
 export const router = Router();
@@ -51,12 +51,16 @@ router.post("/upload", upload.array("files"), async (req, res) => {
 
   const images = await Promise.all(
     files.map(async (file) => {
-      return await prisma.image.create({
+      const image = await prisma.image.create({
         data: {
           path: file.path,
           name: file.originalname,
         },
       });
+
+      logger.info(`Uploaded image ${image.id} (${image.name})`);
+
+      return image;
     })
   );
 
