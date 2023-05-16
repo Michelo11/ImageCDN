@@ -35,6 +35,12 @@ router.get("/:id", async (req, res) => {
 });
 
 router.post("/upload", upload.array("files"), async (req, res) => {
+  if (req.headers.authorization !== process.env.SECRET) {
+    return res.status(401).json({
+      error: "Unauthorized",
+    });
+  }
+
   const files = req.files as Express.Multer.File[];
 
   if (!files || files.length === 0) {
