@@ -1,5 +1,6 @@
 import { Router } from "express";
 import multer from "multer";
+import { existsSync } from "fs";
 import { logger, prisma } from "..";
 import { get } from "../utils/files";
 
@@ -18,6 +19,12 @@ router.get("/:id", async (req, res) => {
   });
 
   if (!image) {
+    return res.status(404).json({
+      error: "Image not found",
+    });
+  }
+
+  if (!existsSync(image.path)) {
     return res.status(404).json({
       error: "Image not found",
     });
